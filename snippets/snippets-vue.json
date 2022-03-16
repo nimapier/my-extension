@@ -1,0 +1,9 @@
+{
+  "page-header": {
+      "prefix": "page-header",
+      "body": [
+          "<page-header title=\"${1:page-title}\"/>"
+      ],
+      "description": "page-header组件"
+  }
+}
