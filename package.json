@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:my-extension.helloWorld"
+    "onCommand:my-extension.helloWorld",
+    "onCommand:my-extension.pushGerrit"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -18,18 +19,30 @@
       {
         "command": "my-extension.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "my-extension.pushGerrit",
+        "title": "Push Gerrit"
       }
     ],
     "snippets": [
       {
-        "language": "vue",
+        "language": "vue-html",
         "path": "./snippets/snippets-vue.json"
       },
       {
         "language": "javascript",
         "path": "./snippets/snippets-js.json"
       }
-    ]
+    ],
+		"views": {
+			"explorer": [
+        {
+          "id": "nodeDependencies",
+          "name": "Node Dependencies"
+        }
+      ]
+		}
   },
   "scripts": {
     "lint": "eslint .",
