@@ -31,15 +31,29 @@ function activate(context) {
     "my-extension.pushGerrit",
     function () {
       let branch = "master";
-      child_process.exec("git status", (error, stdout, stderr) => {
-        branch = stdout;
-        console.log(branch, error, stderr, stdout);
-        vscode.window.showInformationMessage(`branch:${branch.toString()}`);
+      const cwd = vscode.workspace.workspaceFolders[0].uri.path;
+      child_process.exec("git branch", { cwd }, (error, stdout, stderr) => {
+        const regex = /(^\*\s).*(\n*$)/gm;
+        branch = stdout.match(regex);
+        branch = branch.toString().slice(2);
+        // console.log("er:", error, "out", stdout, "ser", stderr);
+        // vscode.window.showInformationMessage(`branch:${branch}`);
+        child_process.exec(
+          `git push origin ${branch}`,
+          { cwd },
+          (error, stdout, stderr) => {
+            // console.log("er:", error, "out", stdout, "ser", stderr);
+            if (error) {
+              vscode.window.showErrorMessage(error.toString());
+            } else {
+              vscode.window.showInformationMessage("提交成功");
+            }
+          }
+        );
       });
-      debugger;
-      console.log(vscode.workspace.workspaceFolders);
-      vscode.window.showInformationMessage(`branch:${branch}`);
-      vscode.commands.executeCommand("git.push");
+      // console.log(vscode.workspace.workspaceFolders[0].uri.path);
+      // vscode.window.showInformationMessage(`branch:${branch}`);
+      // vscode.commands.executeCommand("git.push");
     }
   );
 
