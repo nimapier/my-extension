@@ -39,7 +39,8 @@ function activate(context) {
         // console.log("er:", error, "out", stdout, "ser", stderr);
         // vscode.window.showInformationMessage(`branch:${branch}`);
         child_process.exec(
-          `git push origin HEAD:refs/for/${branch}`,
+          // `git push origin HEAD:refs/for/${branch}`,
+          `git push origin ${branch}`,
           { cwd },
           (error, stdout, stderr) => {
             // console.log("er:", error, "out", stdout, "ser", stderr);
